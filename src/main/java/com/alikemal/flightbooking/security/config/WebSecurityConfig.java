@@ -12,12 +12,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.Properties;
 
 @EnableWebSecurity
 @Configuration
@@ -39,22 +42,39 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authorizeRequests ->
-                authorizeRequests
-                        .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/registration/**").permitAll()
-                        .anyRequest()
-                        .authenticated()
-        );
-        http.httpBasic(Customizer.withDefaults());
-        http.csrf(AbstractHttpConfigurer::disable);
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/users/**").hasRole("ADMIN")
+                        .anyRequest().permitAll()
+                )
+
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/login")
+                        .permitAll()
+                )
+                .logout(LogoutConfigurer::permitAll);
+
         return http.build();
     }
 
     @Bean
-    public JavaMailSender javaMailSender() {
-        return new JavaMailSenderImpl();
+    public JavaMailSender getJavaMailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("localhost");
+        mailSender.setPort(1025);
+        mailSender.setUsername("username");
+        mailSender.setPassword("password");
+
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+
+        return mailSender;
     }
 
 }
