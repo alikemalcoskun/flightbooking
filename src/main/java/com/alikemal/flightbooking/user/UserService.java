@@ -1,7 +1,6 @@
 package com.alikemal.flightbooking.user;
 
 import com.alikemal.flightbooking.registration.RegUser;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
