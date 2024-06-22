@@ -48,6 +48,8 @@ public class WebSecurityConfig {
 
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/users/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/airports/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/airports/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
 
