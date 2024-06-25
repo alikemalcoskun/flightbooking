@@ -52,6 +52,8 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/airports/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/aircraft/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/aircraft/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/flights/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/flights/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
 
