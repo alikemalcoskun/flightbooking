@@ -2,16 +2,12 @@ package com.alikemal.flightbooking.booking;
 
 import com.alikemal.flightbooking.booking.passenger.Passenger;
 import com.alikemal.flightbooking.flight.Flight;
-import com.alikemal.flightbooking.flight.FlightRepository;
 import com.alikemal.flightbooking.flight.FlightService;
 import com.alikemal.flightbooking.user.User;
-import com.alikemal.flightbooking.user.UserRepository;
 import com.alikemal.flightbooking.user.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Security;
 import java.util.List;
 
 @RestController

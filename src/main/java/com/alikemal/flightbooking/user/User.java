@@ -1,6 +1,5 @@
 package com.alikemal.flightbooking.user;
 
-import com.alikemal.flightbooking.user.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;

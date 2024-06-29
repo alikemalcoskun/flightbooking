@@ -1,6 +1,5 @@
 package com.alikemal.flightbooking.booking;
 
-import com.alikemal.flightbooking.booking.passenger.Passenger;
 import com.alikemal.flightbooking.flight.Flight;
 import com.alikemal.flightbooking.user.User;
 import jakarta.persistence.*;
@@ -9,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 
 @Setter
 @Getter
