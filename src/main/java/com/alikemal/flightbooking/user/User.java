@@ -1,6 +1,7 @@
 package com.alikemal.flightbooking.user;
 
 import com.alikemal.flightbooking.user.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class User implements UserDetails {
     private Long id;
     @Column(name = "username", nullable = false, unique = true)
     private String username;
+    @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "email", nullable = false, unique = true)
@@ -81,5 +83,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public List<Role> getRoles() {
+        return List.of(role);
     }
 }
